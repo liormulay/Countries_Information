@@ -4,4 +4,6 @@
     <string name="sort_by_name_descend">Sort by name descend</string>
     <string name="sort_by_area">Sort by area</string>
     <string name="sort_by_area_descend">Sort by area descend</string>
+    <string name="native_name">Native name</string>
+    <string name="english_name">English name</string>
 </resources>

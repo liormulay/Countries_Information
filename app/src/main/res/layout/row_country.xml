@@ -36,6 +36,8 @@
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:textAlignment="center"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
                 tools:text="native name" />
 
 
@@ -46,6 +48,8 @@
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:textAlignment="center"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
                 tools:text="english name" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

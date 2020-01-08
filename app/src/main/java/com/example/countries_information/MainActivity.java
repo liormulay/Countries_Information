@@ -1,6 +1,7 @@
 package com.example.countries_information;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView countriesRecyclerView;
     private CountriesAdapter countriesAdapter;
     private CompositeDisposable disposeOnDestroy = new CompositeDisposable();
+    private AppCompatButton sortByAreaButton;
+    private AppCompatButton sortByAreaDescendButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +27,14 @@ public class MainActivity extends AppCompatActivity {
         countriesAdapter = new CountriesAdapter(this);
         countriesViewModel = new CountriesViewModel();
         findViews();
+        initActions();
         initRecyclerCountries();
         getAllCountries();
+    }
+
+    private void initActions() {
+        sortByAreaButton.setOnClickListener(view -> countriesViewModel.notifySortByArea(false));
+        sortByAreaDescendButton.setOnClickListener(view -> countriesViewModel.notifySortByArea(true));
     }
 
     private void initRecyclerCountries() {
@@ -42,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void findViews() {
         countriesRecyclerView = findViewById(R.id.countries_recycler);
+        sortByAreaButton = findViewById(R.id.sort_by_area_button);
+        sortByAreaDescendButton = findViewById(R.id.sort_by_area_descend_button);
     }
 
 }
