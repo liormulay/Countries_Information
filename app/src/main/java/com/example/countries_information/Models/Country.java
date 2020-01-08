@@ -23,6 +23,10 @@ public class Country {
     @Expose
     private String alpha3Code;
 
+    @SerializedName("area")
+    @Expose
+    private String area;
+
     public String getName() {
         return name;
     }
@@ -53,5 +57,13 @@ public class Country {
 
     public void setAlpha3Code(String alpha3Code) {
         this.alpha3Code = alpha3Code;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 }
