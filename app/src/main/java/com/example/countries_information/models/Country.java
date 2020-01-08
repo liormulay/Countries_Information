@@ -1,4 +1,4 @@
-package com.example.countries_information.Models;
+package com.example.countries_information.models;
 
 import java.util.List;
 

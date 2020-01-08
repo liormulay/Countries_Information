@@ -1,4 +1,4 @@
-package com.example.countries_information.Network;
+package com.example.countries_information.network;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

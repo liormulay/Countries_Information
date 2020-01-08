@@ -1,8 +1,8 @@
 package com.example.countries_information;
 
-import com.example.countries_information.Models.Country;
-import com.example.countries_information.Network.NetworkClient;
-import com.example.countries_information.Network.NetworkInterface;
+import com.example.countries_information.models.Country;
+import com.example.countries_information.network.NetworkClient;
+import com.example.countries_information.network.NetworkInterface;
 
 import java.util.List;
 

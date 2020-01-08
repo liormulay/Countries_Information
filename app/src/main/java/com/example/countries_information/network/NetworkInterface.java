@@ -1,6 +1,6 @@
-package com.example.countries_information.Network;
+package com.example.countries_information.network;
 
-import com.example.countries_information.Models.Country;
+import com.example.countries_information.models.Country;
 
 import java.util.List;
 
