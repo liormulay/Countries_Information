@@ -14,7 +14,7 @@ import com.example.countries_information.view_holders.CountyViewHolder;
 import java.util.List;
 
 public class CountriesAdapter extends RecyclerView.Adapter<CountyViewHolder> {
-    private Context context;
+    protected Context context;
     private List<Country> countries;
 
     public CountriesAdapter(Context context) {
@@ -35,8 +35,7 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CountyViewHolder holder, int position) {
         Country country = countries.get(position);
-        holder.setNativeNameTextView(country.getNativeName());
-        holder.setEnglishName(country.getName());
+        holder.bindData(country);
 
     }
 

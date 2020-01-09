@@ -6,4 +6,6 @@
     <string name="sort_by_area_descend">Sort by area descend</string>
     <string name="native_name">Native name</string>
     <string name="english_name">English name</string>
+    <string name="country">Country :</string>
+    <string name="borders">Borders</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.countries_information;
+package com.example.countries_information.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -7,10 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.countries_information.CountriesViewModel;
+import com.example.countries_information.R;
 import com.example.countries_information.adapters.CountriesAdapter;
+import com.example.countries_information.adapters.CountriesAdapterClickable;
+import com.example.countries_information.models.Country;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.BehaviorSubject;
 
 public class MainActivity extends AppCompatActivity {
     private CountriesViewModel countriesViewModel;
@@ -21,17 +26,18 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatButton sortByAreaDescendButton;
     private AppCompatButton sortByNameButton;
     private AppCompatButton sortByNameDescendButton;
+    private BehaviorSubject<Country> countryChooseSubject = BehaviorSubject.create();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        countriesAdapter = new CountriesAdapter(this);
-        countriesViewModel = new CountriesViewModel();
+        countriesAdapter = new CountriesAdapterClickable(this, countryChooseSubject);
+        countriesViewModel = new CountriesViewModel(this,countryChooseSubject.hide());
         findViews();
-        initActions();
         initRecyclerCountries();
-        getAllCountries();
+        getCountries();
+        initActions();
     }
 
     private void initActions() {
@@ -47,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         countriesRecyclerView.setAdapter(countriesAdapter);
     }
 
-    private void getAllCountries() {
+    private void getCountries() {
         disposeOnDestroy.add(countriesViewModel.getAllCountries()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(countries -> countriesAdapter.setCountries(countries)));

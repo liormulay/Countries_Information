@@ -1,11 +1,12 @@
 package com.example.countries_information.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Country {
+public class Country implements Serializable {
 
     @SerializedName("name")
     @Expose
