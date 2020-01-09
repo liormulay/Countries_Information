@@ -42,28 +42,15 @@ public class CountriesViewModel extends ViewModel {
         return Observable.fromIterable(originalCountries)
                 .subscribeOn(Schedulers.io())
                 .filter(country -> !Strings.isNullOrEmpty(country.getArea()))
-                .sorted((country1, country2) ->
-                        compareArea(Double.valueOf(country1.getArea()), Double.valueOf(country2.getArea()), isDescended))
+                .sorted((country1, country2) -> {
+                    double area1 = Double.parseDouble(country1.getArea());
+                    double area2 = Double.parseDouble(country2.getArea());
+                    return isDescended ? Double.compare(area2,area1) : Double.compare(area1,area2);
+                })
                 .toList();
 
     }
 
-    private int compareArea(Double area1, Double area2, boolean isDescended) {
-        if (area1 < area2) {
-            if (isDescended) {
-                return 1;
-            }
-            return -1;
-        }
-
-        if (area2 < area1) {
-            if (isDescended) {
-                return -1;
-            }
-            return 1;
-        }
-        return 0;
-    }
 
     public void notifySortByArea(boolean isDescended) {
         onClearedDispose.add(sortByArea(isDescended)
