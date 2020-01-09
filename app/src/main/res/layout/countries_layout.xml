@@ -14,7 +14,10 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toStartOf="@+id/english_textView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/english_textView"
@@ -26,12 +29,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toEndOf="@+id/native_textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/black"
+        android:background="@color/white"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/countries_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/native_textView" />
 

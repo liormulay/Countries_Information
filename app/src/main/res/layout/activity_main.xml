@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:layout_marginStart="@dimen/start_or_end_screen_margin"
+    android:layout_marginEnd="@dimen/start_or_end_screen_margin"
     tools:context=".activities.MainActivity">
 
     <LinearLayout
@@ -13,13 +16,18 @@
         android:weightSum="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="5dp"
+        >
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sort_by_name_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:layout_marginEnd="5dp"
             android:text="@string/sort_by_name" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -27,6 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:layout_marginEnd="5dp"
             android:text="@string/sort_by_name_descend" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -34,6 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:layout_marginEnd="5dp"
             android:text="@string/sort_by_area" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -41,12 +55,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/white"
+            android:textColor="@color/black"
             android:text="@string/sort_by_area_descend" />
 
 
     </LinearLayout>
 
     <include
+        android:layout_marginTop="5dp"
         layout="@layout/countries_layout"
         android:layout_height="0dp"
         android:layout_width="match_parent"
