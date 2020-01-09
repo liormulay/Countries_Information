@@ -16,12 +16,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sort_by_name_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/sort_by_name" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sort_by_name_descend_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

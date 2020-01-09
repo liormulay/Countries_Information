@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private CompositeDisposable disposeOnDestroy = new CompositeDisposable();
     private AppCompatButton sortByAreaButton;
     private AppCompatButton sortByAreaDescendButton;
+    private AppCompatButton sortByNameButton;
+    private AppCompatButton sortByNameDescendButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initActions() {
+        sortByNameButton.setOnClickListener(view -> countriesViewModel.notifySortByName(false));
+        sortByNameDescendButton.setOnClickListener(view -> countriesViewModel.notifySortByName(true));
         sortByAreaButton.setOnClickListener(view -> countriesViewModel.notifySortByArea(false));
         sortByAreaDescendButton.setOnClickListener(view -> countriesViewModel.notifySortByArea(true));
     }
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void findViews() {
         countriesRecyclerView = findViewById(R.id.countries_recycler);
+        sortByNameButton = findViewById(R.id.sort_by_name_button);
+        sortByNameDescendButton = findViewById(R.id.sort_by_name_descend_button);
         sortByAreaButton = findViewById(R.id.sort_by_area_button);
         sortByAreaDescendButton = findViewById(R.id.sort_by_area_descend_button);
     }

@@ -51,9 +51,22 @@ public class CountriesViewModel extends ViewModel {
 
     }
 
+    private Single<List<Country>> sortByName(boolean isDescended) {
+        return Observable.fromIterable(originalCountries)
+                .subscribeOn(Schedulers.io())
+                .sorted((country1, country2) -> isDescended ? country2.getName().compareTo(country1.getName())
+                        : country1.getName().compareTo(country2.getName()))
+                .toList();
+
+    }
 
     public void notifySortByArea(boolean isDescended) {
         onClearedDispose.add(sortByArea(isDescended)
+                .subscribe(countries -> allCountriesBehaviorSubject.onNext(countries)));
+    }
+
+    public void notifySortByName(boolean isDescended) {
+        onClearedDispose.add(sortByName(isDescended)
                 .subscribe(countries -> allCountriesBehaviorSubject.onNext(countries)));
     }
 
