@@ -8,4 +8,5 @@
     <string name="english_name">English name</string>
     <string name="country">Country :</string>
     <string name="borders">Borders</string>
+    <string name="borders_not_found">No borders have found</string>
 </resources>
