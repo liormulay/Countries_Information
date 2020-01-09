@@ -1,15 +1,11 @@
 package com.example.countries_information.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
+
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.countries_information.CountriesViewModel;
 import com.example.countries_information.R;
-import com.example.countries_information.adapters.CountriesAdapter;
 import com.example.countries_information.adapters.CountriesAdapterClickable;
 import com.example.countries_information.models.Country;
 
@@ -17,10 +13,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.BehaviorSubject;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends CountiesActivity {
     private CountriesViewModel countriesViewModel;
-    private RecyclerView countriesRecyclerView;
-    private CountriesAdapter countriesAdapter;
     private CompositeDisposable disposeOnDestroy = new CompositeDisposable();
     private AppCompatButton sortByAreaButton;
     private AppCompatButton sortByAreaDescendButton;
@@ -47,11 +41,6 @@ public class MainActivity extends AppCompatActivity {
         sortByAreaDescendButton.setOnClickListener(view -> countriesViewModel.notifySortByArea(true));
     }
 
-    private void initRecyclerCountries() {
-        countriesRecyclerView.setHasFixedSize(true);
-        countriesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        countriesRecyclerView.setAdapter(countriesAdapter);
-    }
 
     private void getCountries() {
         disposeOnDestroy.add(countriesViewModel.getAllCountries()
