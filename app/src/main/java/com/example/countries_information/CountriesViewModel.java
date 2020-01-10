@@ -53,6 +53,7 @@ public class CountriesViewModel extends ViewModel {
                 .subscribe(this::startBordersActivity));
 
         onClearedDispose.add(getAllCountriesFromApi()
+                .subscribeOn(Schedulers.io())
                 .subscribe(countries -> {
                     initOriginalCountries(countries);
                     allCountriesBehaviorSubject.onNext(ImmutableList.copyOf(originalCountries.values()));
