@@ -14,6 +14,9 @@ import com.example.countries_information.view_holders.CountyViewHolderClickable;
 import io.reactivex.subjects.BehaviorSubject;
 
 public class CountriesAdapterClickable extends CountriesAdapter {
+    /**
+     * notify that one of the countries is clicked
+     */
     private BehaviorSubject<Country> clickedSubject;
 
     public CountriesAdapterClickable(Context context, BehaviorSubject<Country> clickedSubject) {

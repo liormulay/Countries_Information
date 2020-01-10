@@ -20,6 +20,9 @@ public class MainActivity extends CountiesActivity {
     private AppCompatButton sortByAreaDescendButton;
     private AppCompatButton sortByNameButton;
     private AppCompatButton sortByNameDescendButton;
+    /**
+     * notify that one of the countries is clicked
+     */
     private BehaviorSubject<Country> countryChooseSubject = BehaviorSubject.create();
 
     @Override

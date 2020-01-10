@@ -35,6 +35,11 @@ public class BordersActivity extends CountiesActivity {
         }
     }
 
+    /**
+     * set the countries that has border with original country in adapter<br>
+     * in case that there is no borders will be a message
+     * @param extras that should contains the countries
+     */
     private void setBorders(Bundle extras) {
         List<Country> countries = (List<Country>) extras.getSerializable(BORDERS_EXTRA);
         if (countries != null && countries.size() > 0) {
@@ -49,6 +54,10 @@ public class BordersActivity extends CountiesActivity {
         }
     }
 
+    /**
+     * set the name of original country
+     * @param extras that should contains the original country
+     */
     private void setOriginalCountry(Bundle extras) {
         Country country = (Country) extras.getSerializable(COUNTRY_EXTRA);
         if (country != null) {

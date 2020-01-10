@@ -14,7 +14,7 @@ import com.example.countries_information.view_holders.CountyViewHolder;
 import java.util.List;
 
 public class CountriesAdapter extends RecyclerView.Adapter<CountyViewHolder> {
-    protected Context context;
+    Context context;
     private List<Country> countries;
 
     public CountriesAdapter(Context context) {
