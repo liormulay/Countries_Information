@@ -11,9 +11,12 @@ import com.example.countries_information.models.Country;
 import com.example.countries_information.network.NetworkClient;
 import com.example.countries_information.network.NetworkInterface;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -28,9 +31,11 @@ public class CountriesViewModel extends ViewModel {
      */
     private BehaviorSubject<List<Country>> allCountriesBehaviorSubject = BehaviorSubject.create();
     /**
-     * the original countries that come from api
+     * the original countries that come from api <br>
+     * key - the alpha three code of the country <br>
+     * value - the country
      */
-    private List<Country> originalCountries = new ArrayList<>();
+    private Map<String, Country> originalCountries = new HashMap<>();
     private CompositeDisposable onClearedDispose = new CompositeDisposable();
     private Context context;
     public static final String COUNTRY_EXTRA = "country extra";
@@ -49,15 +54,22 @@ public class CountriesViewModel extends ViewModel {
 
         onClearedDispose.add(getAllCountriesFromApi()
                 .subscribe(countries -> {
-                    originalCountries = countries;
-                    allCountriesBehaviorSubject.onNext(originalCountries);
+                    initOriginalCountries(countries);
+                    allCountriesBehaviorSubject.onNext(ImmutableList.copyOf(originalCountries.values()));
                 }, Throwable::printStackTrace));
+    }
+
+    private void initOriginalCountries(List<Country> countries) {
+        for (Country country : countries) {
+            originalCountries.put(country.getAlpha3Code(), country);
+        }
     }
 
     /**
      * Call when you want to start {@link BordersActivity}
+     *
      * @param countryListPair contains {@link Country} and {@link List<Country>} of
-     * the countries that have border with it
+     *                        the countries that have border with it
      */
     private void startBordersActivity(Pair<Country, List<Country>> countryListPair) {
         Intent intent = new Intent(context, BordersActivity.class);
@@ -75,18 +87,12 @@ public class CountriesViewModel extends ViewModel {
         List<String> bordersCodes = country.getBorders();
         List<Country> borders = new ArrayList<>();
         for (String borderCode : bordersCodes) {
-            for (Country originalCountry : originalCountries) {
-                if (originalCountry.getAlpha3Code().equals(borderCode)) {
-                    borders.add(originalCountry);
-                    break;
-                }
-            }
+            borders.add(originalCountries.get(borderCode));
         }
         return borders;
     }
 
     /**
-     *
      * @return {@link List<Country>} that come from api
      */
     private Single<List<Country>> getAllCountriesFromApi() {
@@ -96,7 +102,6 @@ public class CountriesViewModel extends ViewModel {
     }
 
     /**
-     *
      * @return {@link Observable} that emit {@link List<Country>} of updated countries
      */
     public Observable<List<Country>> getAllCountries() {
@@ -106,11 +111,12 @@ public class CountriesViewModel extends ViewModel {
     /**
      * sort the counties according their area size<br>
      * countries that have no area will be at the end of list
+     *
      * @param isDescended determine if the order need to be descended
      * @return {@link Single} that emit the sorted list
      */
     private Single<List<Country>> sortByArea(boolean isDescended) {
-        return Observable.fromIterable(originalCountries)
+        return Observable.fromIterable(originalCountries.values())
                 .subscribeOn(Schedulers.io())
                 .sorted((country1, country2) -> sortByArea(country1.getArea(), country2.getArea(), isDescended))
                 .toList();
@@ -119,6 +125,7 @@ public class CountriesViewModel extends ViewModel {
 
     /**
      * Determine which area need to come first
+     *
      * @param area1String area of first country
      * @param area2String area of second country
      * @param isDescended determine if the order need to be descended
@@ -133,9 +140,10 @@ public class CountriesViewModel extends ViewModel {
 
     /**
      * parse the string of area to double
-     * @param areaString that need to be parse
+     *
+     * @param areaString  that need to be parse
      * @param isDescended determine in case that the string is null or empty <br>
-     * if returned value will be 0 or positive infinity
+     *                    if returned value will be 0 or positive infinity
      * @return the parsed value
      */
     private double getDoubleArea(String areaString, boolean isDescended) {
@@ -146,11 +154,12 @@ public class CountriesViewModel extends ViewModel {
 
     /**
      * sort the counties according their name in english
+     *
      * @param isDescended determine if the order need to be descended
      * @return {@link Single} that emit the sorted list
      */
     private Single<List<Country>> sortByName(boolean isDescended) {
-        return Observable.fromIterable(originalCountries)
+        return Observable.fromIterable(originalCountries.values())
                 .subscribeOn(Schedulers.io())
                 .sorted((country1, country2) -> isDescended ? country2.getName().compareTo(country1.getName())
                         : country1.getName().compareTo(country2.getName()))
@@ -160,6 +169,7 @@ public class CountriesViewModel extends ViewModel {
 
     /**
      * notify that need to sort the countries by their area
+     *
      * @param isDescended determine if the order need to be descended
      */
     public void notifySortByArea(boolean isDescended) {
@@ -169,6 +179,7 @@ public class CountriesViewModel extends ViewModel {
 
     /**
      * notify that need to sort the countries by their name in english
+     *
      * @param isDescended determine if the order need to be descended
      */
     public void notifySortByName(boolean isDescended) {
