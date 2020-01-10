@@ -24,7 +24,7 @@ import io.reactivex.subjects.BehaviorSubject;
 
 public class CountriesViewModel extends ViewModel {
     private BehaviorSubject<List<Country>> allCountriesBehaviorSubject = BehaviorSubject.create();
-    private List<Country> originalCountries;
+    private List<Country> originalCountries = new ArrayList<>();
     private CompositeDisposable onClearedDispose = new CompositeDisposable();
     private Context context;
     public static final String COUNTRY_EXTRA = "country extra";
@@ -45,7 +45,7 @@ public class CountriesViewModel extends ViewModel {
                 .subscribe(countries -> {
                     originalCountries = countries;
                     allCountriesBehaviorSubject.onNext(originalCountries);
-                }));
+                }, Throwable::printStackTrace));
     }
 
     private void startBordersActivity(Pair<Country, List<Country>> countryListPair) {
@@ -71,7 +71,7 @@ public class CountriesViewModel extends ViewModel {
         return borders;
     }
 
-    public Observable<List<Country>> getAllCountriesFromApi() {
+    public Single<List<Country>> getAllCountriesFromApi() {
         return NetworkClient.getRetrofit().create(NetworkInterface.class)
                 .getAllCountries()
                 .subscribeOn(Schedulers.io());
