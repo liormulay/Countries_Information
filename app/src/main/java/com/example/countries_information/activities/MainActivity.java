@@ -1,6 +1,8 @@
 package com.example.countries_information.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -20,6 +22,7 @@ public class MainActivity extends CountiesActivity {
     private AppCompatButton sortByAreaDescendButton;
     private AppCompatButton sortByNameButton;
     private AppCompatButton sortByNameDescendButton;
+    private ProgressBar progressBar;
     /**
      * notify that one of the countries is clicked
      */
@@ -42,13 +45,17 @@ public class MainActivity extends CountiesActivity {
         sortByNameDescendButton.setOnClickListener(view -> countriesViewModel.notifySortByName(true));
         sortByAreaButton.setOnClickListener(view -> countriesViewModel.notifySortByArea(false));
         sortByAreaDescendButton.setOnClickListener(view -> countriesViewModel.notifySortByArea(true));
+        progressBar.setVisibility(View.VISIBLE);
     }
 
 
     private void getCountries() {
         disposeOnDestroy.add(countriesViewModel.getAllCountries()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(countries -> countriesAdapter.setCountries(countries)));
+                .subscribe(countries -> {
+                    countriesAdapter.setCountries(countries);
+                    progressBar.setVisibility(View.GONE);
+                }));
     }
 
     private void findViews() {
@@ -57,6 +64,7 @@ public class MainActivity extends CountiesActivity {
         sortByNameDescendButton = findViewById(R.id.sort_by_name_descend_button);
         sortByAreaButton = findViewById(R.id.sort_by_area_button);
         sortByAreaDescendButton = findViewById(R.id.sort_by_area_descend_button);
+        progressBar = findViewById(R.id.progressBar);
     }
 
 }
